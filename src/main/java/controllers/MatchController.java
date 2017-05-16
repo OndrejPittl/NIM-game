@@ -26,8 +26,8 @@ public class MatchController implements Initializable {
     @FXML
     private ImageView imgView;
 
-    @FXML
-    private Label lbl;
+//    @FXML
+//    private Label lbl;
 
     @FXML
     private BorderPane matchContainer;
@@ -65,17 +65,17 @@ public class MatchController implements Initializable {
     public void setData(int index, HeapController heapController){
         this.index = index;
         this.heapController = heapController;
-        this.lbl.setText(String.valueOf(index));
+//        this.lbl.setText(String.valueOf(index));
     }
 
     public void handleMouseEntered() {
-        System.out.println("entered: " + this.index);
+        //System.out.println("entered: " + this.index);
         MatchController.hoveringIndex = this.index;
         this.heapController.proceedMatchHover();
     }
 
     public void handleMouseExited() {
-        System.out.println("left: " + this.index);
+        //System.out.println("left: " + this.index);
         MatchController.hoveringIndex = -1;
         this.heapController.proceedMatchHover();
     }

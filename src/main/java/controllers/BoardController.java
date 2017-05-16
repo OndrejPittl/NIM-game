@@ -4,17 +4,32 @@ import config.ViewConfig;
 import core.NimEngine;
 import io.DataLoader;
 import io.UIComponent;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BoardController implements Initializable {
+
+
+    private boolean overlayVisible = true;
+
+    private int[] matchCountsSettings;
 
     /**
      * Počet hromádek.
@@ -28,11 +43,9 @@ public class BoardController implements Initializable {
 
     private NimEngine nim;
 
-
     private HeapController[] heapControllers;
-    private MatchController[] matchControllers;
-
-    private OverlayController overlayController;
+    //private MatchController[] matchControllers;
+    //private OverlayController overlayController;
 
 
     /**
@@ -58,10 +71,31 @@ public class BoardController implements Initializable {
     @FXML
     private HBox hboxOverlayControls;
 
+    @FXML
+    private Button btnExit;
+
+    @FXML
+    private Button btnAgain;
+
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        this.overlayController = new OverlayController(this.overlayWrapper, this.lblMsg);
+//        this.overlayController = new OverlayController(
+//            this.overlayWrapper,
+//            this.lblOverlayMsgMajor,
+//            this.lblOverlayMsgMinor,
+//            this.lblOverlayMsgTitle,
+//            this.hboxOverlayControls
+//        );
+
+        this.btnExit.setOnAction((e) -> {
+            Platform.exit();
+            System.exit(1);
+        });
+
+        this.btnAgain.setOnAction((e) -> {
+            handlePlayAgain();
+        });
     }
 
     private void initMatches(){
@@ -99,6 +133,53 @@ public class BoardController implements Initializable {
     }
 
 
+    public void startPlayerTurn() {
+        this.blinkTurnOverlay(false);
+    }
+
+    public void startPCTurn() {
+        this.blinkTurnOverlay(true);
+    }
+
+    private void blinkTurnOverlay(boolean isPCTurn) {
+
+        System.out.println(Arrays.toString(this.matchCounts));
+
+        int delay = 300;
+
+        if(isPCTurn) {
+            this.displayTurnStart(ViewConfig.MSG_PC_TURN);
+        } else {
+            delay = 600;
+            this.displayTurnStart(ViewConfig.MSG_PLAYER_TURN);
+        }
+
+        if(this.overlayVisible) {
+            this.overlayVisible = false;
+        } else {
+        }
+        this.showOverlay(delay);
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
+        fadeOut.setFromValue(1.0); fadeOut.setToValue(0.0);
+        fadeOut.setOnFinished((e) -> {
+        if(isPCTurn) {
+            // PC
+            new Timer().schedule(new TimerTask() {
+                public void run() {
+                    Platform.runLater(() -> proceedPCTurn());
+                }
+            }, ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION);
+        } else {
+            // Player
+            this.heapWrapper.setDisable(false);
+        }});
+
+        fadeOut.setDelay(Duration.millis(delay + ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION + ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION));
+        fadeOut.play();
+
+    }
+
     public void proceedPlayerTurn() {
         int[] gameStatus = this.getGameStatus();
         this.nim.setGameState(gameStatus);
@@ -107,7 +188,7 @@ public class BoardController implements Initializable {
             System.out.println("Player is a winner!!!!");
             this.proceedGameOver(ViewConfig.MSG_WINNER_PLAYER);
         } else {
-            this.proceedPCTurn();
+            this.startPCTurn();
         }
     }
 
@@ -117,12 +198,30 @@ public class BoardController implements Initializable {
 
         if(this.nim.isWinner()) {
             this.proceedGameOver(ViewConfig.MSG_WINNER_PC);
+        } else {
+            this.startPlayerTurn();
         }
     }
 
     private void proceedGameOver(String msg) {
-        this.overlayController.displayGameOver(msg);
+        this.displayGameOver(msg);
+        this.showOverlay(300);
     }
+
+    private void handlePlayAgain() {
+        this.matchCounts = this.matchCountsSettings.clone();
+        this.nim.setGameState(this.matchCounts);
+        this.updateHeaps(this.matchCounts);
+        this.hideOverlay();
+
+        new Timer().schedule(new TimerTask() {
+            public void run() {
+                Platform.runLater(() -> startGame());
+            }
+        }, ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION);
+    }
+
+
 
 
 
@@ -145,10 +244,82 @@ public class BoardController implements Initializable {
 
     public void setData(int[] matchCounts) {
         this.matchCounts = matchCounts;
+        this.matchCountsSettings = matchCounts;
         this.heapCount = matchCounts.length;
         this.nim = new NimEngine(matchCounts);
         this.heapContainers = new VBox[heapCount];
         this.heapControllers = new HeapController[heapCount];
         this.initMatches();
     }
+
+
+
+
+
+
+    public void displayGameOver(String msg) {
+        this.lblOverlayMsgTitle.setVisible(true);
+        this.lblOverlayMsgMajor.setText(ViewConfig.MSG_GAME_OVER);
+        this.lblOverlayMsgMinor.setText(msg);
+        this.lblOverlayMsgMinor.setVisible(true);
+        this.hboxOverlayControls.setVisible(true);
+        this.overlayWrapper.setMouseTransparent(false);
+    }
+
+
+    public void displayTurnStart(String msg) {
+        this.lblOverlayMsgTitle.setVisible(false);
+        this.lblOverlayMsgMajor.setText(msg);
+        this.lblOverlayMsgMinor.setVisible(false);
+        this.hboxOverlayControls.setVisible(false);
+
+        this.overlayWrapper.setMouseTransparent(true);
+        this.heapWrapper.setDisable(true);
+    }
+
+    private void hideOverlay() {
+        this.overlayWrapper.setOpacity(0);
+    }
+
+
+//    private void blinkOverlay(int delay) {
+//        if(!this.overlayVisible)
+//            this.showOverlay(delay);
+//        this.hideOverlay(delay);
+//
+//
+////        fadeIn.setOnFinished((e) -> {
+////            new Timer().schedule(new TimerTask() {
+////                public void run() {}
+////            }, ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION);
+////        });
+//
+//    }
+
+    private void showOverlay(int delay) {
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
+        fadeIn.setFromValue(0.0); fadeIn.setToValue(1.0);
+        fadeIn.setDelay(Duration.millis(delay));
+        fadeIn.play();
+    }
+
+    public void startGame() {
+
+        if(Math.round(Math.random() * 10) >= 5) {
+            this.startPCTurn();
+        } else {
+            this.startPlayerTurn();
+        }
+    }
+
+//    private void hideOverlay(int delay) {
+//        FadeTransition fadeOut = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
+//        fadeOut.setFromValue(1.0); fadeOut.setToValue(0.0);
+//        fadeOut.setOnFinished((e) -> {
+//            this.overlayWrapper.setVisible(false);
+//            this.overlayVisible = false;
+//        });
+//        fadeOut.setDelay(Duration.millis(delay + ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION + ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION));
+//        fadeOut.play();
+//    }
 }

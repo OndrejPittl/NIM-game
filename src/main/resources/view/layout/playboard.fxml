@@ -61,12 +61,12 @@
                         </Label>
                         <HBox fx:id="hboxOverlayControls" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Play again.">
+                              <Button fx:id="btnAgain" mnemonicParsing="false" text="Play again.">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" text="Exit game.">
+                              <Button fx:id="btnExit" mnemonicParsing="false" text="Exit game.">
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </HBox.margin>

@@ -41,7 +41,10 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Nim Game");
         this.initRootLayout();
+        this.boardController.startGame();
     }
+
+
 
     public void initRootLayout() {
         try {
