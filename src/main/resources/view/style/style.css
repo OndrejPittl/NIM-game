@@ -1,0 +1,23 @@
+.frame {
+    -fx-background-image: url("../img/bg.png");
+
+}
+
+    /* hromádka */
+    .heapContainer {
+        -fx-margin: 5px;
+    }
+
+        .heapContainer:hover .match {
+            -fx-background-color: #ededed;
+        }
+
+        /* zápalka */
+        .heapContainer .match {
+            -fx-padding: 5px 10px;
+        }
+
+
+    .frame .overlayWrapper {
+        -fx-background-color: #fff;
+    }
