@@ -6,7 +6,6 @@ import io.DataLoader;
 import io.UIComponent;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -157,8 +154,9 @@ public class BoardController implements Initializable {
         if(this.overlayVisible) {
             this.overlayVisible = false;
         } else {
+            this.showOverlay(delay);
         }
-        this.showOverlay(delay);
+
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
         fadeOut.setFromValue(1.0); fadeOut.setToValue(0.0);
@@ -252,11 +250,6 @@ public class BoardController implements Initializable {
         this.initMatches();
     }
 
-
-
-
-
-
     public void displayGameOver(String msg) {
         this.lblOverlayMsgTitle.setVisible(true);
         this.lblOverlayMsgMajor.setText(ViewConfig.MSG_GAME_OVER);
@@ -281,21 +274,6 @@ public class BoardController implements Initializable {
         this.overlayWrapper.setOpacity(0);
     }
 
-
-//    private void blinkOverlay(int delay) {
-//        if(!this.overlayVisible)
-//            this.showOverlay(delay);
-//        this.hideOverlay(delay);
-//
-//
-////        fadeIn.setOnFinished((e) -> {
-////            new Timer().schedule(new TimerTask() {
-////                public void run() {}
-////            }, ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION);
-////        });
-//
-//    }
-
     private void showOverlay(int delay) {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
         fadeIn.setFromValue(0.0); fadeIn.setToValue(1.0);
@@ -312,14 +290,4 @@ public class BoardController implements Initializable {
         }
     }
 
-//    private void hideOverlay(int delay) {
-//        FadeTransition fadeOut = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
-//        fadeOut.setFromValue(1.0); fadeOut.setToValue(0.0);
-//        fadeOut.setOnFinished((e) -> {
-//            this.overlayWrapper.setVisible(false);
-//            this.overlayVisible = false;
-//        });
-//        fadeOut.setDelay(Duration.millis(delay + ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION + ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION));
-//        fadeOut.play();
-//    }
 }
