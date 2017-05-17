@@ -65,22 +65,6 @@ public class NimEngine {
         return result;
     }
 
-//    /**
-//     * Getter stavu hry v řetězcové reprezentaci.
-//     */
-//    private String getStringState() {
-//        String result = "";
-//
-//        for (int i = 0; i < this.gameState.length; i++) {
-//            result += this.gameState[i];
-//            if (i != this.gameState.length - 1) {
-//                result += ";";
-//            }
-//        }
-//
-//        return result;
-//    }
-
     public void setGameState(int[] newState) {
         this.gameState = newState;
     }
@@ -95,16 +79,4 @@ public class NimEngine {
         return sum == 0;
     }
 
-//    /**
-//     * Parsuje pocet;sirek;na;hromadkach, iniciuje pole s číselnými reprezentacemi.
-//     */
-//    private void processStringState(String newState) {
-//        String heaps[] = newState.split(";");
-//
-//        this.gameState = new int[heaps.length];
-//
-//        for (int i = 0; i < heaps.length; i++) {
-//            this.gameState[i] = Integer.parseInt(heaps[i]);
-//        }
-//    }
 }
