@@ -1,13 +1,20 @@
 package core;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class NimEngine {
 
     private int[] gameState;
+    private KnowledgeBase knowledgeBase;
     private boolean winner;
 
     public NimEngine(int[] matchCounts) {
         this.gameState = matchCounts;
+        this.knowledgeBase = new KnowledgeBase();
     }
 
     /**
@@ -22,23 +29,12 @@ public class NimEngine {
      *  Vykonává AI tah.
      */
     private void processMove() {
-        int state = this.computeGameState();
+        System.out.println("I am in state: " + Arrays.toString(this.gameState));
+        int[] targetSituation = knowledgeBase.getAccessibleSituation(this.gameState);
 
-        if (state != 0) {
-
-            // strategický tah
-
-            for (int i = 0; i < this.gameState.length; i++) {
-                if ((this.gameState[i] ^ state) <= this.gameState[i]) {
-                    this.gameState[i] = this.gameState[i] ^ state;
-                    return;
-                }
-            }
+        if (targetSituation != null) {
+            this.gameState = targetSituation;
         } else {
-
-            // cesta nejmenšího odporu (oddálení konce) odebráním jediné
-            // sirpy z balíčku s nejvyšším počtem sirek
-
             int max = Integer.MIN_VALUE;
             int maxIndex = 0;
 
@@ -50,6 +46,7 @@ public class NimEngine {
             }
             this.gameState[maxIndex] -= 1;
         }
+        System.out.println("Ended up in state: " + Arrays.toString(this.gameState));
     }
 
     /**

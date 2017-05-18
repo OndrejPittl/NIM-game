@@ -5,6 +5,8 @@ import config.Routes;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +30,43 @@ public class KnowledgeBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int[] getAccessibleSituation(int[] currentSituation) {
+        int heapCount = currentSituation.length;
+        int[][] situations = null;
+
+        switch (heapCount) {
+            case 2: situations = twoHeapedWinningPositions; break;
+            case 3: situations = threeHeapedWinningPositions; break;
+            case 4: situations = fourHeapedWinningPositions; break;
+        }
+
+        for (int[] sit : situations) {
+            if (isAccessible(currentSituation, sit)) {
+                return sit;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isAccessible(int[] a, int[] b) {
+        if (a.length != b.length) {
+            return false;
+        }
+
+        List<Integer> aa = new ArrayList<Integer>(a.length);
+        for (int ai : a) { aa.add(ai); };
+
+        List<Integer> bb = new ArrayList<Integer>(b.length);
+        for (int bi : b) { bb.add(bi); };
+
+        for (Object o : aa) {
+            bb.remove(o);
+        }
+
+        return bb.size() == 1;
     }
 
     public int[][] getTwoHeapedWinningPositions() {
@@ -55,9 +94,6 @@ public class KnowledgeBase {
         }
 
         processLines(lines);
-        for (int i = 0; i < threeHeapedWinningPositions.length; i++) {
-            System.out.println(Arrays.toString(threeHeapedWinningPositions[i]));
-        }
     }
 
     private void processLines(List<String> lines) {
