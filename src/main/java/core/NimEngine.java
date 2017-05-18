@@ -1,13 +1,20 @@
 package core;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class NimEngine {
 
     private int[] gameState;
+    private KnowledgeBase knowledgeBase;
     private boolean winner;
 
     public NimEngine(int[] matchCounts) {
         this.gameState = matchCounts;
+        this.knowledgeBase = new KnowledgeBase();
     }
 
     /**
@@ -22,23 +29,12 @@ public class NimEngine {
      *  Vykonává AI tah.
      */
     private void processMove() {
-        int state = this.computeGameState();
+        System.out.println("I am in state: " + Arrays.toString(this.gameState));
+        int[] targetSituation = knowledgeBase.getAccessibleSituation(this.gameState);
 
-        if (state != 0) {
-
-            // strategický tah
-
-            for (int i = 0; i < this.gameState.length; i++) {
-                if ((this.gameState[i] ^ state) <= this.gameState[i]) {
-                    this.gameState[i] = this.gameState[i] ^ state;
-                    return;
-                }
-            }
+        if (targetSituation != null) {
+            this.gameState = targetSituation;
         } else {
-
-            // cesta nejmenšího odporu (oddálení konce) odebráním jediné
-            // sirpy z balíčku s nejvyšším počtem sirek
-
             int max = Integer.MIN_VALUE;
             int maxIndex = 0;
 
@@ -50,6 +46,7 @@ public class NimEngine {
             }
             this.gameState[maxIndex] -= 1;
         }
+        System.out.println("Ended up in state: " + Arrays.toString(this.gameState));
     }
 
     /**
@@ -65,22 +62,6 @@ public class NimEngine {
         return result;
     }
 
-//    /**
-//     * Getter stavu hry v řetězcové reprezentaci.
-//     */
-//    private String getStringState() {
-//        String result = "";
-//
-//        for (int i = 0; i < this.gameState.length; i++) {
-//            result += this.gameState[i];
-//            if (i != this.gameState.length - 1) {
-//                result += ";";
-//            }
-//        }
-//
-//        return result;
-//    }
-
     public void setGameState(int[] newState) {
         this.gameState = newState;
     }
@@ -95,16 +76,4 @@ public class NimEngine {
         return sum == 0;
     }
 
-//    /**
-//     * Parsuje pocet;sirek;na;hromadkach, iniciuje pole s číselnými reprezentacemi.
-//     */
-//    private void processStringState(String newState) {
-//        String heaps[] = newState.split(";");
-//
-//        this.gameState = new int[heaps.length];
-//
-//        for (int i = 0; i < heaps.length; i++) {
-//            this.gameState[i] = Integer.parseInt(heaps[i]);
-//        }
-//    }
 }

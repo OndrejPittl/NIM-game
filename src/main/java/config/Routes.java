@@ -12,6 +12,6 @@ public class Routes {
 
     public static final String VIEW_IMG = "/view/img/";
 
-
+    public static final String KNOWLEDGE = "knowledge/";
 
 }
