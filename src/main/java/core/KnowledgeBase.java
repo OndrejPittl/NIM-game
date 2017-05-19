@@ -27,6 +27,9 @@ public class KnowledgeBase {
     private int[][] fourHeapedWinningPositions;
 
 
+    /**
+     *  Konstruktor.
+     */
     public KnowledgeBase() {
         try {
             loadWinningPositions();
@@ -82,16 +85,6 @@ public class KnowledgeBase {
         }
 
         return bb.size() == 1;
-    }
-
-    public int[][] getTwoHeapedWinningPositions() {
-        return twoHeapedWinningPositions;
-    }
-    public int[][] getThreeHeapedWinningPositions() {
-        return threeHeapedWinningPositions;
-    }
-    public int[][] getFourHeapedWinningPositions() {
-        return fourHeapedWinningPositions;
     }
 
     /**
@@ -171,5 +164,4 @@ public class KnowledgeBase {
 
         return total;
     }
-
 }

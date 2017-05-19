@@ -14,20 +14,31 @@ import java.util.ResourceBundle;
 
 public class MatchController implements Initializable {
 
+    /**
+     *  Index sirky, nad níž je myš.
+     */
     private static int hoveringIndex;
 
+    /**
+     *  Index aktuální sirky.
+     */
     private int index;
 
+    /**
+     *  Stav aktuální sirky.
+     */
     private MatchState state;
 
-
+    /**
+     *  Controller hromádky.
+     */
     private HeapController heapController;
 
+    /**
+     *  View komponenty.
+     */
     @FXML
     private ImageView imgView;
-
-//    @FXML
-//    private Label lbl;
 
     @FXML
     private BorderPane matchContainer;
@@ -37,6 +48,9 @@ public class MatchController implements Initializable {
         this.updateState(MatchState.VISIBLE);
     }
 
+    /**
+     *  Aktualizace stavu sirky.
+     */
     public void updateState(MatchState state) {
         this.state = state;
 
@@ -57,40 +71,56 @@ public class MatchController implements Initializable {
         }
     }
 
+    /**
+     *  Přizpůsobení velikosti.
+     */
     public void updateComponent(int heapWidth) {
         int paddings = 30;
         this.imgView.setFitWidth(heapWidth  - paddings);
     }
 
-
+    /**
+     *  Setter.
+     */
     public void setData(int index, HeapController heapController){
         this.index = index;
         this.heapController = heapController;
-//        this.lbl.setText(String.valueOf(index));
     }
 
+    /**
+     *  Obsluha vstupu myši na sirku.
+     */
     public void handleMouseEntered() {
-        //System.out.println("entered: " + this.index);
         MatchController.hoveringIndex = this.index;
         this.heapController.proceedMatchHover();
     }
 
+    /**
+     *  Obluha opuštění sirky myší.
+     */
     public void handleMouseExited() {
-        //System.out.println("left: " + this.index);
         MatchController.hoveringIndex = -1;
         this.heapController.proceedMatchHover();
     }
 
+    /**
+     *  Obsluha kliknutí myši.
+     */
     public void handleMouseClick() {
         this.handleMouseExited();
         this.heapController.proceedMatchSelect(this.index);
     }
 
-
+    /**
+     *  Getter.
+     */
     public MatchState getState() {
         return state;
     }
 
+    /**
+     *  Getter.
+     */
     public static int getHoveringIndex() {
         return hoveringIndex;
     }

@@ -1,6 +1,7 @@
 package controllers;
 
 import config.ViewConfig;
+import core.MainApp;
 import core.NimEngine;
 import io.DataLoader;
 import io.UIComponent;
@@ -8,6 +9,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -24,25 +26,35 @@ import java.util.TimerTask;
 public class BoardController implements Initializable {
 
 
+    /**
+     *  Příznak viditelnosti překryvné vrstvy.
+     */
     private boolean overlayVisible = true;
 
+    /**
+     *  Nastavení hry předané uživatelem.
+     */
     private int[] matchCountsSettings;
 
     /**
-     * Počet hromádek.
+     * Počet hromádek hry.
      */
     private int heapCount = -1;
 
     /**
-     * Počet sirek na hromádkách.
+     * Počet sirek na jednotlivých hromádkách.
      */
     private int[] matchCounts;
 
+    /**
+     *  Výherní stratehgie umělé inteligence hry.
+     */
     private NimEngine nim;
 
+    /**
+     *  Controllery obsluhující zobrazení hromádek a interakci s nimi.
+     */
     private HeapController[] heapControllers;
-    //private MatchController[] matchControllers;
-    //private OverlayController overlayController;
 
 
     /**
@@ -77,24 +89,13 @@ public class BoardController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-//        this.overlayController = new OverlayController(
-//            this.overlayWrapper,
-//            this.lblOverlayMsgMajor,
-//            this.lblOverlayMsgMinor,
-//            this.lblOverlayMsgTitle,
-//            this.hboxOverlayControls
-//        );
-
-        this.btnExit.setOnAction((e) -> {
-            Platform.exit();
-            System.exit(1);
-        });
-
-        this.btnAgain.setOnAction((e) -> {
-            handlePlayAgain();
-        });
+        this.btnExit.setOnAction((e) -> MainApp.exitApp());
+        this.btnAgain.setOnAction((e) -> handlePlayAgain());
     }
 
+    /**
+     *  Inicializace.
+     */
     private void init(){
         this.nim = new NimEngine(matchCounts);
         this.heapContainers = new VBox[heapCount];
@@ -102,6 +103,9 @@ public class BoardController implements Initializable {
         this.initMatches();
     }
 
+    /**
+     *  Inicializace zápalek.
+     */
     private void initMatches(){
 
         int heapWidth = 600 / this.heapCount;
@@ -112,6 +116,7 @@ public class BoardController implements Initializable {
             VBox box = new VBox();
             box.getStyleClass().add("heapContainer");
             box.setMinWidth(heapWidth);
+            box.setAlignment(Pos.TOP_CENTER);
 
             HeapController hController  = new HeapController();
 
@@ -128,7 +133,7 @@ public class BoardController implements Initializable {
                 box.getChildren().add(m);
             }
 
-            hController.setData(this.heapContainers[i], controllers, this);
+            hController.setData(controllers, this);
 
             this.heapContainers[i] = box;
             this.heapControllers[i] = hController;
@@ -138,18 +143,24 @@ public class BoardController implements Initializable {
     }
 
 
+    /**
+     *  Spuštění kola fyzického hráče.
+     */
     public void startPlayerTurn() {
         this.blinkTurnOverlay(false);
     }
 
+    /**
+     *  Spuštění kola PC.
+     */
     public void startPCTurn() {
         this.blinkTurnOverlay(true);
     }
 
+    /**
+     *  Hláška uživateli.
+     */
     private void blinkTurnOverlay(boolean isPCTurn) {
-
-//        System.out.println(Arrays.toString(this.matchCounts));
-
         int delay = 300;
 
         if(isPCTurn) {
@@ -164,7 +175,6 @@ public class BoardController implements Initializable {
         } else {
             this.showOverlay(delay);
         }
-
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
         fadeOut.setFromValue(1.0); fadeOut.setToValue(0.0);
@@ -183,21 +193,25 @@ public class BoardController implements Initializable {
 
         fadeOut.setDelay(Duration.millis(delay + ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION + ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION));
         fadeOut.play();
-
     }
 
+    /**
+     *  Obsluha tahu hráče, kontrola výhry, iniciace tahu PC.
+     */
     public void proceedPlayerTurn() {
         int[] gameStatus = this.getGameStatus();
         this.nim.setGameState(gameStatus);
 
         if(this.nim.isWinner()) {
-            System.out.println("Player is a winner!!!!");
             this.proceedGameOver(ViewConfig.MSG_WINNER_PLAYER);
         } else {
             this.startPCTurn();
         }
     }
 
+    /**
+     *  Obluha tahu PC.
+     */
     public void proceedPCTurn() {
         int[] gameStatus = this.nim.getAIMove();
         this.updateHeaps(gameStatus);
@@ -209,11 +223,17 @@ public class BoardController implements Initializable {
         }
     }
 
+    /**
+     *  Obsluha konce hry, zobrazení hlášky a nabídky.
+     */
     private void proceedGameOver(String msg) {
         this.displayGameOver(msg);
         this.showOverlay(300);
     }
 
+    /**
+     *  Obsluha opětovného spuštění hry.
+     */
     private void handlePlayAgain() {
         this.matchCounts = this.matchCountsSettings.clone();
         this.nim.setGameState(this.matchCounts);
@@ -227,8 +247,9 @@ public class BoardController implements Initializable {
         }, ViewConfig.TIMER_TURN_OVERLAY_SHOW_DURATION);
     }
 
-
-
+    /**
+     *  Získání stavu hry po hráčově tahu.
+     */
     public int[] getGameStatus() {
         int[] gameStatus = new int[this.heapCount];
 
@@ -239,12 +260,18 @@ public class BoardController implements Initializable {
         return  gameStatus;
     }
 
+    /**
+     *  Aktualizace hromádek, tj. zobrazení aktuálního stavu.
+     */
     private void updateHeaps(int[] gameStatus) {
         for (int i = 0; i < this.heapCount; i++) {
             this.heapControllers[i].updateMatches(gameStatus[i]);
         }
     }
 
+    /**
+     *  Setter.
+     */
     public void setData(int[] matchCounts) {
         this.heapCount = matchCounts.length;
         this.matchCounts = matchCounts;
@@ -252,6 +279,9 @@ public class BoardController implements Initializable {
         this.init();
     }
 
+    /**
+     * Zobrazuje konec hry.
+     */
     public void displayGameOver(String msg) {
         this.lblOverlayMsgTitle.setVisible(true);
         this.lblOverlayMsgMajor.setText(ViewConfig.MSG_GAME_OVER);

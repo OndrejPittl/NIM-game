@@ -1,10 +1,6 @@
 package core;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 public class NimEngine {
 
     /**
@@ -23,9 +19,9 @@ public class NimEngine {
     private KnowledgeBase knowledgeBase;
 
 
-    //private boolean winner;
-
-
+    /**
+     *  Konstruktor.
+     */
     public NimEngine(int[] matchCounts) {
         this.gameState = matchCounts;
         this.knowledgeBase = new KnowledgeBase();
@@ -48,7 +44,7 @@ public class NimEngine {
      *  tj. cesta nejmenšího odporu (oddaluje konec hry).
      */
     private void processMove() {
-        System.out.println("I am in state: " + Arrays.toString(this.gameState));
+//        System.out.println("I am in state: " + Arrays.toString(this.gameState));
         int[] targetSituation = knowledgeBase.getAccessibleSituation(this.gameState);
 
         if (targetSituation != null) {
@@ -67,28 +63,19 @@ public class NimEngine {
             }
             this.gameState[maxIndex] -= 1;
         }
-        System.out.println("Ended up in state: " + Arrays.toString(this.gameState));
+//        System.out.println("Ended up in state: " + Arrays.toString(this.gameState));
     }
 
-//    (původní implementace)
-//
-//    /**
-//     * Počítá stav hry.
-//     */
-//    private int computeGameState() {
-//        int result = 0;
-//
-//        for (int i = 0; i < this.gameState.length; i++) {
-//            result ^= this.gameState[i];
-//        }
-//
-//        return result;
-//    }
-
+    /**
+     *  Setter.
+     */
     public void setGameState(int[] newState) {
         this.gameState = newState;
     }
 
+    /**
+     *  Getter.
+     */
     public boolean isWinner() {
         int sum = 0;
 
@@ -99,10 +86,10 @@ public class NimEngine {
         return sum == 0;
     }
 
-
+    /**
+     *  Řadí sirky nového tahu získaného ze znalostní báze.
+     */
     public int[] getOrderedGameState() {
-        // origGameState | gameState
-
         int origHeapCount = this.origGameState.length,
             newHeapCount = this.gameState.length,
             numberLeft = -1;
@@ -113,8 +100,8 @@ public class NimEngine {
             newState[i] = -1;
         }
 
-        System.out.println("original: " + Arrays.toString(this.origGameState));
-        System.out.println("     new: " + Arrays.toString(this.gameState));
+//        System.out.println("original: " + Arrays.toString(this.origGameState));
+//        System.out.println("     new: " + Arrays.toString(this.gameState));
 
 
         for (int i = 0; i < newHeapCount; i++) {
@@ -143,7 +130,7 @@ public class NimEngine {
             }
         }
 
-        System.out.println(" ordered: " + Arrays.toString(newState));
+//        System.out.println(" ordered: " + Arrays.toString(newState));
         return newState;
     }
 }

@@ -12,11 +12,17 @@ import java.io.InputStream;
 
 public class DataLoader {
 
+    /**
+     *  Načítá FXML dílčí soubor.
+     */
     public static UIComponent loadPartialLayout(String path) {
         InputStream in = core.MainApp.class.getResourceAsStream(Routes.VIEW_LAYOUT_PARTIAL + path);
         return DataLoader.loadFXML(in);
     }
 
+    /**
+     *  Načítá FXML soubor.
+     */
     private static UIComponent loadFXML(InputStream in) {
         FXMLLoader loader = new FXMLLoader();
 

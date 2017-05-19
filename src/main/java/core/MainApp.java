@@ -5,8 +5,10 @@ package core;
  */
 
 import config.Routes;
+import config.ViewConfig;
 import controllers.BoardController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -30,22 +32,33 @@ public class MainApp extends Application {
     private BoardController boardController;
 
 
-
+    /**
+     * Hlavní funkce.
+     */
     public static void main(String[] args) {
-        MainApp.parseInputArgs(args);
+
+        // validace vstupních argumentů
+        if(!MainApp.parseInputArgs(args)) {
+            MainApp.printHelp();
+            return;
+        }
+
+        // spuštění app
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Nim Game");
+        this.primaryStage.setTitle(ViewConfig.MSG_NIM);
         this.initRootLayout();
         this.boardController.startGame();
     }
 
 
-
+    /**
+     * Inicializace okna aplikace.
+     */
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -57,13 +70,21 @@ public class MainApp extends Application {
 
             Scene scene = new Scene(rootLayout);
             scene.getStylesheets().add(Routes.VIEW_STYLE + "style.css");
+
+            this.primaryStage.setOnCloseRequest((e) -> MainApp.exitApp());
             this.primaryStage.setScene(scene);
             this.primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Zpracování vstupních argumentů aplikace.
+     * Povoleny jsou 4 hromádky o 0 - 10 sirkách,
+     * přičemž hromádka s 0 sirkami je ignorována.
+     */
     private static boolean parseInputArgs(String[] args){
         int heapCount;
         String command;
@@ -72,11 +93,18 @@ public class MainApp extends Application {
         if(args.length <= 0)
             return false;
 
-        if((command = args[0]).indexOf(';') < 0)
+        command = args[0];
+        if(command.indexOf(';') <= 0 || command.indexOf(';') >= command.length() - 1)
             return false;
 
         parts = command.split(";");
         heapCount = parts.length;
+
+
+        if(heapCount > 4)
+            return false;
+
+
         MainApp.matchCounts = new int[heapCount];
 
         int pos = 0;
@@ -84,7 +112,7 @@ public class MainApp extends Application {
 
             int val = Integer.parseInt(parts[i]);
 
-            if(val < 0) {
+            if(val < 0 || val > 10) {
                 return false;
             } else if(val == 0) {
                 continue;
@@ -94,6 +122,28 @@ public class MainApp extends Application {
         }
 
         return true;
+    }
+
+    /**
+     *  Nápověda.
+     */
+    private static void printHelp() {
+        System.out.println(
+                "******************** " + ViewConfig.MSG_NIM + " ********************\n"
+              + "*        !!! Invalid input arguments. !!!        *\n"
+              + "**************************************************\n"
+              + "* 4 heaps containing max 10 matches are allowed. *\n"
+              + "*            example: \"./nim 1;2;5;7\"            *\n"
+              + "**************************************************"
+        );     //******************** NIM game ********************
+    }
+
+    /**
+     *  Ukončení aplikace.
+     */
+    public static void exitApp() {
+        Platform.exit();
+        System.exit(1);
     }
 
 }

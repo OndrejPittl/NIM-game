@@ -5,30 +5,41 @@ import model.MatchState;
 
 public class HeapController {
 
-
-    private VBox container;
-
+    /**
+     *  Počet sirek na hromádce.
+     */
     private int matchCount;
 
+    /**
+     *  Controllery sirek.
+     */
     private MatchController[] matches;
 
+    /**
+     *  Controller hrací desky.
+     */
     private BoardController boardController;
 
 
-    //private int[] gameStatus;
-
-
+    /**
+     *  Konstruktor.
+     */
     public HeapController() {
         this.matchCount = 0;
     }
 
-    public void setData(VBox container, MatchController[] matches, BoardController boardController) {
-        this.container = container;
+    /**
+     *  Setter.
+     */
+    public void setData(MatchController[] matches, BoardController boardController) {
         this.matches = matches;
         this.matchCount = matches.length;
         this.boardController = boardController;
     }
 
+    /**
+     *  Obsluha tahu.
+     */
     public void proceedMatchSelect(int index) {
         for (int i = 0; i <= index; i++) {
             this.matches[i].updateState(MatchState.HIDDEN);
@@ -37,6 +48,9 @@ public class HeapController {
         this.boardController.proceedPlayerTurn();
     }
 
+    /**
+     *  Obarvování zvolených sirek.
+     */
     public void proceedMatchHover() {
         int index = MatchController.getHoveringIndex();
 
@@ -53,6 +67,9 @@ public class HeapController {
         }
     }
 
+    /**
+     *  Getter stavu hromádky.
+     */
     public int computeHeapStatus() {
         int mCount = 0;
 
@@ -64,6 +81,9 @@ public class HeapController {
         return mCount;
     }
 
+    /**
+     *  Aktualizace stavu hromádky. Znázornění tahu.
+     */
     public void updateMatches(int matchStatus) {
 
         int edge = this.matchCount - matchStatus;

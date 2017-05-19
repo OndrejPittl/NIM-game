@@ -1,11 +1,16 @@
 package config;
 
+
 public class Routes {
 
+    /**
+     * Název souboru se znalostní bází.
+     */
     public static final String WP_FILENAME = "winning_positions.txt";
 
-    public static final String VIEW = "/view/";
-
+    /**
+     *  Cesty v projektu.
+     */
     public static final String VIEW_LAYOUT = "/view/layout/";
 
     public static final String VIEW_LAYOUT_PARTIAL = "/view/layout/partial/";
