@@ -57,8 +57,9 @@ public class MatchController implements Initializable {
         }
     }
 
-    public void updateComponent(int width) {
-        this.imgView.setFitWidth(width);
+    public void updateComponent(int heapWidth) {
+        int paddings = 30;
+        this.imgView.setFitWidth(heapWidth  - paddings);
     }
 
 

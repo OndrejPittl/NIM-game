@@ -1,28 +1,31 @@
 package core;
 
 import config.Routes;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by justme on 17/05/2017.
- */
+
 public class KnowledgeBase {
 
-    int[][] twoHeapedWinningPositions;
+    /**
+     * Výherní pozice pro dvě hromádky.
+     */
+    private int[][] twoHeapedWinningPositions;
 
-    int[][] threeHeapedWinningPositions;
+    /**
+     * Výherní pozice pro tři hromádky.
+     */
+    private int[][] threeHeapedWinningPositions;
 
-    int[][] fourHeapedWinningPositions;
+    /**
+     * Výherní pozice pro čtyři hromádky.
+     */
+    private int[][] fourHeapedWinningPositions;
 
-    private final String WP_FILENAME = "winning_positions.txt";
 
     public KnowledgeBase() {
         try {
@@ -32,6 +35,12 @@ public class KnowledgeBase {
         }
     }
 
+    /**
+     * Výběr dosažitelné výherní pozice (existuje-li) ze znalostní báze.
+     * Není-li pozice nalezena, vrací null.
+     * @param currentSituation  aktuální pozice
+     * @return                  pozice | null
+     */
     public int[] getAccessibleSituation(int[] currentSituation) {
         int heapCount = currentSituation.length;
         int[][] situations = null;
@@ -51,6 +60,12 @@ public class KnowledgeBase {
         return null;
     }
 
+    /**
+     * Rozhoduje o dosažitelnosti stavu [b] ze stavu [a].
+     * @param a výchozí stav
+     * @param b cílový stav
+     * @return  true | false
+     */
     private boolean isAccessible(int[] a, int[] b) {
         if (a.length != b.length) {
             return false;
@@ -72,18 +87,20 @@ public class KnowledgeBase {
     public int[][] getTwoHeapedWinningPositions() {
         return twoHeapedWinningPositions;
     }
-
     public int[][] getThreeHeapedWinningPositions() {
         return threeHeapedWinningPositions;
     }
-
     public int[][] getFourHeapedWinningPositions() {
         return fourHeapedWinningPositions;
     }
 
+    /**
+     * Načítá výherní pozice ze souboru.
+     * @throws Exception    Soubor nenalezen / chyba při čtení.
+     */
     private void loadWinningPositions() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
-        File winningPositionsFile = new File(classLoader.getResource(Routes.KNOWLEDGE + WP_FILENAME).getFile());
+        File winningPositionsFile = new File(classLoader.getResource(Routes.KNOWLEDGE + Routes.WP_FILENAME).getFile());
 
         BufferedReader br = new BufferedReader(new FileReader(winningPositionsFile));
 
@@ -96,6 +113,10 @@ public class KnowledgeBase {
         processLines(lines);
     }
 
+    /**
+     * Parsuje výherní pozice a uchovává ve znalostní bázi.
+     * @param lines výherní pozice načtená ze souboru
+     */
     private void processLines(List<String> lines) {
         int twoIndex = 0;
         twoHeapedWinningPositions   = new int[getCount(2, lines)][2];
@@ -133,6 +154,12 @@ public class KnowledgeBase {
         }
     }
 
+    /**
+     *  Počítá počet výherních stavů pro [count] hromádek.
+     * @param count počet hromádek
+     * @param lines výherní stavy
+     * @return  počet stavů
+     */
     private int getCount(int count, List<String> lines) {
         int total = 0;
 

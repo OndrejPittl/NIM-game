@@ -2,6 +2,8 @@ package config;
 
 public class Routes {
 
+    public static final String WP_FILENAME = "winning_positions.txt";
+
     public static final String VIEW = "/view/";
 
     public static final String VIEW_LAYOUT = "/view/layout/";

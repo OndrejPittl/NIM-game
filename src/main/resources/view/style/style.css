@@ -3,13 +3,21 @@
 
 }
 
+    .frame .gameTitle {
+
+        -fx-border-color: black;
+        -fx-border-width: 0 0 1px 0;
+        -fx-border-style: solid;
+    }
+
     /* hromádka */
     .heapContainer {
         -fx-margin: 5px;
     }
 
         .heapContainer:hover .match {
-            -fx-background-color: #ededed;
+            -fx-background-color: #f4f4f4;
+
         }
 
         /* zápalka */

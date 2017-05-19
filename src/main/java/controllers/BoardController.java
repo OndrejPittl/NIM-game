@@ -95,15 +95,23 @@ public class BoardController implements Initializable {
         });
     }
 
+    private void init(){
+        this.nim = new NimEngine(matchCounts);
+        this.heapContainers = new VBox[heapCount];
+        this.heapControllers = new HeapController[heapCount];
+        this.initMatches();
+    }
+
     private void initMatches(){
 
-        int heapWidth = 600 / this.heapCount - 30;
+        int heapWidth = 600 / this.heapCount;
 
         // hromádky
         for (int i = 0; i < this.heapCount; i++) {
 
             VBox box = new VBox();
             box.getStyleClass().add("heapContainer");
+            box.setMinWidth(heapWidth);
 
             HeapController hController  = new HeapController();
 
@@ -140,7 +148,7 @@ public class BoardController implements Initializable {
 
     private void blinkTurnOverlay(boolean isPCTurn) {
 
-        System.out.println(Arrays.toString(this.matchCounts));
+//        System.out.println(Arrays.toString(this.matchCounts));
 
         int delay = 300;
 
@@ -221,9 +229,6 @@ public class BoardController implements Initializable {
 
 
 
-
-
-
     public int[] getGameStatus() {
         int[] gameStatus = new int[this.heapCount];
 
@@ -241,13 +246,10 @@ public class BoardController implements Initializable {
     }
 
     public void setData(int[] matchCounts) {
-        this.matchCounts = matchCounts;
-        this.matchCountsSettings = matchCounts;
         this.heapCount = matchCounts.length;
-        this.nim = new NimEngine(matchCounts);
-        this.heapContainers = new VBox[heapCount];
-        this.heapControllers = new HeapController[heapCount];
-        this.initMatches();
+        this.matchCounts = matchCounts;
+        this.matchCountsSettings = matchCounts.clone();
+        this.init();
     }
 
     public void displayGameOver(String msg) {
@@ -283,11 +285,13 @@ public class BoardController implements Initializable {
 
     public void startGame() {
 
-        if(Math.round(Math.random() * 10) >= 5) {
-            this.startPCTurn();
-        } else {
-            this.startPlayerTurn();
-        }
+        this.startPCTurn();
+
+//        if(Math.random() >= .5) {
+//            this.startPCTurn();
+//        } else {
+//            this.startPlayerTurn();
+//        }
     }
 
 }

@@ -15,13 +15,16 @@
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Label text="Nim game" BorderPane.alignment="CENTER">
+                  <Label styleClass="gameTitle" text="NIM GAME" BorderPane.alignment="CENTER">
                      <font>
-                        <Font size="25.0" />
+                        <Font name="PT Sans Bold" size="25.0" />
                      </font>
                      <BorderPane.margin>
                         <Insets bottom="10.0" top="20.0" />
                      </BorderPane.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
                   </Label>
                </top>
                <center>
