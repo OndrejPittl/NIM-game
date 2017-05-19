@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;

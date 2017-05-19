@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="nim:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/nim_jar</output-path>
+    <root id="archive" name="nim.jar">
+      <element id="module-output" name="nim" />
+    </root>
+  </artifact>
+</component>

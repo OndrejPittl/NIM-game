@@ -1,9 +1,8 @@
 package core;
 
 import config.Routes;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,10 +91,8 @@ public class KnowledgeBase {
      * @throws Exception    Soubor nenalezen / chyba při čtení.
      */
     private void loadWinningPositions() throws Exception {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File winningPositionsFile = new File(classLoader.getResource(Routes.KNOWLEDGE + Routes.WP_FILENAME).getFile());
-
-        BufferedReader br = new BufferedReader(new FileReader(winningPositionsFile));
+        InputStream is = getClass().getResourceAsStream(Routes.KNOWLEDGE + Routes.WP_FILENAME);
+        BufferedReader br  = new BufferedReader(new InputStreamReader(is));
 
         String line;
         List<String> lines = new LinkedList<String>();
