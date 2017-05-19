@@ -284,14 +284,11 @@ public class BoardController implements Initializable {
     }
 
     public void startGame() {
-
-        this.startPCTurn();
-
-//        if(Math.random() >= .5) {
-//            this.startPCTurn();
-//        } else {
-//            this.startPlayerTurn();
-//        }
+        if(Math.random() >= .5) {
+            this.startPCTurn();
+        } else {
+            this.startPlayerTurn();
+        }
     }
 
 }

@@ -16,13 +16,13 @@
     }
 
         .heapContainer:hover .match {
-            -fx-background-color: #f4f4f4;
+            /*-fx-background-color: #f4f4f4;*/
 
         }
 
         /* zápalka */
         .heapContainer .match {
-            -fx-padding: 1px 10px;
+            -fx-padding: 0 10px;
         }
 
 

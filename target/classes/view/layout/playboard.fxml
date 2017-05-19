@@ -9,24 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="frame" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="frame" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <Label styleClass="gameTitle" text="NIM GAME" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="PT Sans Bold" size="25.0" />
-                     </font>
-                     <BorderPane.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                     </BorderPane.margin>
-                     <padding>
-                        <Insets left="15.0" right="15.0" />
-                     </padding>
-                  </Label>
-               </top>
                <center>
                   <HBox fx:id="heapWrapper" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
