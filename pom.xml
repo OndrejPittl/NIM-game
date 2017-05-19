@@ -19,6 +19,7 @@
                     <include>**/*.css</include>
                     <include>**/*.png</include>
                     <include>**/*.txt</include>
+                    <include>**/*.jpg</include>
                 </includes>
             </resource>
         </resources>
