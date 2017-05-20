@@ -28,5 +28,6 @@
 
     .frame .overlayWrapper,
     .frame .overlayBG {
-        -fx-background-color: #fff;
+        /*-fx-background-color: #fff;*/
+        -fx-background-image: url("../img/bg.png");
     }
