@@ -7,27 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="226aba59-439f-4dbe-b41e-a9995e3d663f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifacts/nim_jar/nim.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/view/img/bg_.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/view/img/bg_.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/config/ViewConfig.class" afterPath="$PROJECT_DIR$/target/classes/config/ViewConfig.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/BoardController$1.class" afterPath="$PROJECT_DIR$/target/classes/controllers/BoardController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/BoardController$2.class" afterPath="$PROJECT_DIR$/target/classes/controllers/BoardController$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/BoardController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/BoardController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/HeapController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/HeapController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/MatchController$1.class" afterPath="$PROJECT_DIR$/target/classes/controllers/MatchController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/controllers/MatchController.class" afterPath="$PROJECT_DIR$/target/classes/controllers/MatchController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/core/KnowledgeBase.class" afterPath="$PROJECT_DIR$/target/classes/core/KnowledgeBase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/io/DataLoader.class" afterPath="$PROJECT_DIR$/target/classes/io/DataLoader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/model/MatchState.class" afterPath="$PROJECT_DIR$/target/classes/model/MatchState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/nim.jar" afterPath="$PROJECT_DIR$/target/nim.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/BoardController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/BoardController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/HeapController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/HeapController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controllers/MatchController.java" afterPath="$PROJECT_DIR$/src/main/java/controllers/MatchController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/core/KnowledgeBase.java" afterPath="$PROJECT_DIR$/src/main/java/core/KnowledgeBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/DataLoader.java" afterPath="$PROJECT_DIR$/src/main/java/io/DataLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/MatchState.java" afterPath="$PROJECT_DIR$/src/main/java/model/MatchState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/core/MainApp.java" afterPath="$PROJECT_DIR$/src/main/java/core/MainApp.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -59,8 +39,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>matchControllers</find>
-      <find>handleApplicationExit</find>
       <find>get</find>
       <find>handlep</find>
       <find>process</find>
@@ -89,6 +67,8 @@
       <find>fourheap</find>
       <find>s</find>
       <find>System.out</find>
+      <find>parse</find>
+      <find>printhe</find>
     </findStrings>
     <dirStrings>
       <dir>/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/jre/lib/ext/jfxrt.jar!/javafx/scene</dir>
@@ -116,7 +96,6 @@
         <option value="$PROJECT_DIR$/src/main/java/controllers/OverlayController.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/NimEngine.java" />
         <option value="$PROJECT_DIR$/src/main/java/config/Routes.java" />
-        <option value="$PROJECT_DIR$/src/main/java/core/MainApp.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/view/style/style.css" />
         <option value="$PROJECT_DIR$/src/main/java/config/ViewConfig.java" />
@@ -127,6 +106,7 @@
         <option value="$PROJECT_DIR$/src/main/java/io/UIComponent.java" />
         <option value="$PROJECT_DIR$/src/main/java/core/KnowledgeBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/controllers/BoardController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/MainApp.java" />
       </list>
     </option>
   </component>
@@ -908,12 +888,12 @@
       <workItem from="1495220599018" duration="11607000" />
       <workItem from="1495235778241" duration="3889000" />
       <workItem from="1495271107001" duration="17435000" />
-      <workItem from="1495355562250" duration="1204000" />
+      <workItem from="1495355562250" duration="1448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88726000" />
+    <option name="totallyTimeSpent" value="88970000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1275" height="778" extended-state="6" />
@@ -929,12 +909,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32722145" sideWeight="0.5027451" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20733428" sideWeight="0.4972549" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20733428" sideWeight="0.4972549" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27607843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27607843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32722145" sideWeight="0.4972549" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1148,14 +1128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/core/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="128" column="7" lean-forward="false" selection-start-line="128" selection-start-column="7" selection-end-line="128" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/core/KnowledgeBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -1168,6 +1140,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="143" column="4" lean-forward="false" selection-start-line="143" selection-start-column="4" selection-end-line="143" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/MainApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="143" column="10" lean-forward="true" selection-start-line="143" selection-start-column="10" selection-end-line="143" selection-end-column="10" />
           <folding />
         </state>
       </provider>

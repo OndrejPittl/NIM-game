@@ -110,7 +110,13 @@ public class MainApp extends Application {
         int pos = 0;
         for(int i = 0; i < heapCount; i++) {
 
-            int val = Integer.parseInt(parts[i]);
+            int val;
+
+            try {
+                val = Integer.parseInt(parts[i]);
+            } catch (NumberFormatException e) {
+                return false;
+            }
 
             if(val < 0 || val > 10) {
                 return false;
@@ -132,8 +138,8 @@ public class MainApp extends Application {
                 "******************** " + ViewConfig.MSG_NIM + " ********************\n"
               + "*        !!! Invalid input arguments. !!!        *\n"
               + "**************************************************\n"
-              + "* 2 - 4 heaps containing 0 - 10 matches allowed. *\n"
-              + "*      example: java -jar nim.jar \"1;2;5;7\"      *\n"
+              + "* 2 - 4 heaps containing 1 - 10 matches allowed. *\n"
+              + "*      example: java -jar nim.jar \"1;2;5;8\"      *\n"
               + "**************************************************"
         );
     }
