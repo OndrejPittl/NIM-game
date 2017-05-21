@@ -1,8 +1,5 @@
 package core;
 
-/**
- * Created by OndrejPittl on 15.05.17.
- */
 
 import config.Routes;
 import config.ViewConfig;
