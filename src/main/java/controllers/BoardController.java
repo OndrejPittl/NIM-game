@@ -141,6 +141,16 @@ public class BoardController implements Initializable {
         this.heapWrapper.getChildren().addAll(this.heapContainers);
     }
 
+    /**
+     *  Zahajuje hru náhodným výběrem začínajícího hráče.
+     */
+    public void startGame() {
+        if(Math.random() >= .5) {
+            this.startPCTurn();
+        } else {
+            this.startPlayerTurn();
+        }
+    }
 
     /**
      *  Spuštění kola fyzického hráče.
@@ -290,7 +300,9 @@ public class BoardController implements Initializable {
         this.overlayWrapper.setMouseTransparent(false);
     }
 
-
+    /**
+     *  Zobzaruje začátek kola.
+     */
     public void displayTurnStart(String msg) {
         this.lblOverlayMsgTitle.setVisible(false);
         this.lblOverlayMsgMajor.setText(msg);
@@ -301,23 +313,20 @@ public class BoardController implements Initializable {
         this.heapWrapper.setDisable(true);
     }
 
+    /**
+     *  Skrývá překryvnou vrstvu.
+     */
     private void hideOverlay() {
         this.overlayWrapper.setOpacity(0);
     }
 
+    /**
+     *  Zoobrazuje překryvnou vrstvu.
+     */
     private void showOverlay(int delay) {
         FadeTransition fadeIn = new FadeTransition(Duration.millis(ViewConfig.TIMER_TURN_OVERLAY_FADE_DURATION), this.overlayWrapper);
         fadeIn.setFromValue(0.0); fadeIn.setToValue(1.0);
         fadeIn.setDelay(Duration.millis(delay));
         fadeIn.play();
     }
-
-    public void startGame() {
-        if(Math.random() >= .5) {
-            this.startPCTurn();
-        } else {
-            this.startPlayerTurn();
-        }
-    }
-
 }

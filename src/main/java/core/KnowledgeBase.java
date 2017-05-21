@@ -2,8 +2,11 @@ package core;
 
 import config.Routes;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,17 +16,17 @@ public class KnowledgeBase {
     /**
      * Výherní pozice pro dvě hromádky.
      */
-    private int[][] twoHeapedWinningPositions;
+    private int[][] twoHeapKnowledge;
 
     /**
      * Výherní pozice pro tři hromádky.
      */
-    private int[][] threeHeapedWinningPositions;
+    private int[][] threeHeapKnowledge;
 
     /**
      * Výherní pozice pro čtyři hromádky.
      */
-    private int[][] fourHeapedWinningPositions;
+    private int[][] fourHeapKnowledge;
 
 
     /**
@@ -48,9 +51,9 @@ public class KnowledgeBase {
         int[][] situations = null;
 
         switch (heapCount) {
-            case 2: situations = twoHeapedWinningPositions; break;
-            case 3: situations = threeHeapedWinningPositions; break;
-            case 4: situations = fourHeapedWinningPositions; break;
+            case 2: situations = twoHeapKnowledge; break;
+            case 3: situations = threeHeapKnowledge; break;
+            case 4: situations = fourHeapKnowledge; break;
         }
 
         for (int[] sit : situations) {
@@ -109,11 +112,11 @@ public class KnowledgeBase {
      */
     private void processLines(List<String> lines) {
         int twoIndex = 0;
-        twoHeapedWinningPositions   = new int[getCount(2, lines)][2];
+        twoHeapKnowledge = new int[getCount(2, lines)][2];
         int threeIndex = 0;
-        threeHeapedWinningPositions = new int[getCount(3, lines)][3];
+        threeHeapKnowledge = new int[getCount(3, lines)][3];
         int fourIndex = 0;
-        fourHeapedWinningPositions  = new int[getCount(4, lines)][4];
+        fourHeapKnowledge = new int[getCount(4, lines)][4];
 
         for (String line : lines) {
             String[] numbers = line.split(";");
@@ -121,21 +124,21 @@ public class KnowledgeBase {
             switch(numbers.length) {
                 case 2: {
                     for (int i = 0; i < 2; i++) {
-                        twoHeapedWinningPositions[twoIndex][i] = Integer.parseInt(numbers[i]);
+                        twoHeapKnowledge[twoIndex][i] = Integer.parseInt(numbers[i]);
                     }
                     twoIndex++;
                     break;
                 }
                 case 3: {
                     for (int i = 0; i < 3; i++) {
-                        threeHeapedWinningPositions[threeIndex][i] = Integer.parseInt(numbers[i]);
+                        threeHeapKnowledge[threeIndex][i] = Integer.parseInt(numbers[i]);
                     }
                     threeIndex++;
                     break;
                 }
                 case 4: {
                     for (int i = 0; i < 4; i++) {
-                        fourHeapedWinningPositions[fourIndex][i] = Integer.parseInt(numbers[i]);
+                        fourHeapKnowledge[fourIndex][i] = Integer.parseInt(numbers[i]);
                     }
                     fourIndex++;
                     break;

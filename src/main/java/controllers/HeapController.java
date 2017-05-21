@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.scene.layout.VBox;
 import model.MatchState;
 
 public class HeapController {
